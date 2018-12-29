@@ -1,21 +1,26 @@
 language: python
 python:
   - "2.7"
-  - "3.4"
-  - "3.5"
   - "3.6"
   # PyPy versions
   - "pypy3.5"
 # command to install dependencies
 install:
-  # pip install -r requirements.txt
+  - pip install -r requirements.txt
   # pip install .
 # command to run tests
-script: pytest
+script: #pytest
 notifications:
     slack: automation-sravan:ileYh2eClUTRWYguPVX4xgfa
-    email:
+notifications:
+  slack:
+    rooms:
+      - automation-sravan:jL4rpMwieMSUfQjqAqy0lnds#general
+      - automation-sravan:jL4rpMwieMSUfQjqAqy0lnds#random
+notifications:
+  email:
     recipients:
       - sravan.bade1@gmail.com
+      - sravankumarreddy.bade@gmail.com
     on_success: always # default: change
     on_failure: always # default: always
