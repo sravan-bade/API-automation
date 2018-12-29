@@ -11,13 +11,11 @@ install:
 # command to run tests
 script: #pytest
 notifications:
-    slack: automation-sravan:ileYh2eClUTRWYguPVX4xgfa
-notifications:
   slack:
     rooms:
-      - automation-sravan:jL4rpMwieMSUfQjqAqy0lnds#general
-      - automation-sravan:jL4rpMwieMSUfQjqAqy0lnds#random
-notifications:
+      - automation-sravan:ileYh2eClUTRWYguPVX4xgfa
+      - automation-sravan:ileYh2eClUTRWYguPVX4xgfa#general
+      - automation-sravan:ileYh2eClUTRWYguPVX4xgfa#random
   email:
     recipients:
       - sravan.bade1@gmail.com
