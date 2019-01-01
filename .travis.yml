@@ -9,6 +9,14 @@ install:
   # pip install .
 # command to run tests
 script: python test_run.py postman-echo.com release1
+deploy:
+  provider: releases
+  api_key: ${api_key}
+  file: "requirements.txt"
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
 notifications:
   slack:
     rooms:
