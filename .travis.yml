@@ -1,21 +1,36 @@
 language: python
 python:
-  - "2.7"
   - "3.6"
-  # PyPy versions
-  - "pypy3.5"
 # command to install dependencies
 install:
   - pip install -r requirements.txt
   # pip install .
 # command to run tests
-script: #pytest
+script: python test_run.py postman-echo.com release1
+before_deploy:
+  # Set up git user name and tag this commit
+  if ! [[ $TRAVIS_TAG ]]; then
+        export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)} &&
+        export Release=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)} &&
+        git config --local user.name "sravan-bade" &&
+        git config --local user.email "sravan-bade1@gmail.com" &&
+        git tag "$TRAVIS_TAG";
+      fi
+deploy:
+  provider: releases
+  api_key: ${api_key}
+  file: 
+    - "Test_Results.txt"
+    - "test_run.log"
+    - "test_error.log"
+  skip_cleanup: true
+  on:
+    all_branches: true
 notifications:
   slack:
     rooms:
       - automation-sravan:ileYh2eClUTRWYguPVX4xgfa
-      - automation-sravan:ileYh2eClUTRWYguPVX4xgfa#general
-      - automation-sravan:ileYh2eClUTRWYguPVX4xgfa#random
+      - automation-sravan:ileYh2eClUTRWYguPVX4xgfa#automation
   email:
     recipients:
       - sravan.bade1@gmail.com
