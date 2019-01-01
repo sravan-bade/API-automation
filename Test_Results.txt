@@ -1,0 +1,13 @@
+*Sample APIs validation:*
+URL: https://postman-echo.com Build Version: release_name
+Request_methods_test_data : Passed
+Request_methods_get_request : Passed
+Request_methods_post_raw_data : Passed
+Request_methods_post_url_encoded : Passed
+Request_methods_put_data : Passed
+Request_methods_patch_data : *Failed*
+Request_methods_delete_data : Passed
+
+*Test Execution Summary*
+Total Tests: 7; Passed: 6; Failed: 1
+*Total Time Taken for Execution : 13.608928918838501 seconds *
