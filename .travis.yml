@@ -18,7 +18,10 @@ before_deploy:
 deploy:
   provider: releases
   api_key: ${api_key}
-  file: "requirements.txt"
+  file: 
+    - "Test_Results.txt"
+    - "test_run.log"
+    - "test_error.log"
   skip_cleanup: true
   on:
     all_branches: true
@@ -26,8 +29,7 @@ notifications:
   slack:
     rooms:
       - automation-sravan:ileYh2eClUTRWYguPVX4xgfa
-      - automation-sravan:ileYh2eClUTRWYguPVX4xgfa#general
-      - automation-sravan:ileYh2eClUTRWYguPVX4xgfa#random
+      - automation-sravan:ileYh2eClUTRWYguPVX4xgfa#automation
   email:
     recipients:
       - sravan.bade1@gmail.com
