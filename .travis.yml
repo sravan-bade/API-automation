@@ -11,9 +11,10 @@ before_deploy:
   # Set up git user name and tag this commit
   if ! [[ $TRAVIS_TAG ]]; then
     export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)} &&
+    export Release=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)} &&
     git config --local user.name "sravan-bade" &&
     git config --local user.email "sravan-bade1@gmail.com" &&
-    git tag "$TRAVIS_TAG";
+    git tag "$TRAVIS_TAG" && git release "$Release";
   fi
 deploy:
   provider: releases
