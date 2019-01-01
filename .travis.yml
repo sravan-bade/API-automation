@@ -20,9 +20,6 @@ deploy:
   api_key: ${api_key}
   file: "requirements.txt"
   skip_cleanup: true
-  on:
-    all_branches: true
-    tags: true
 notifications:
   slack:
     rooms:
