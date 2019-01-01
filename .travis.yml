@@ -10,6 +10,7 @@ install:
 # command to run tests
 script: python test_run.py postman-echo.com release1
 before_deploy:
+  if ! [[ $TRAVIS_TAG ]]; then
       # Set up git user name and tag this commit
       - git config --local user.name "sravan-bade"
       - git config --local user.email "sravan-bade1@gmail.com"
