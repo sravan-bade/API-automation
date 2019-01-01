@@ -14,7 +14,7 @@ before_deploy:
     export Release=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)} &&
     git config --local user.name "sravan-bade" &&
     git config --local user.email "sravan-bade1@gmail.com" &&
-    git tag "$TRAVIS_TAG" -a "$Release" -m "Message";
+    git tag -a "$TRAVIS_TAG" -m "Message";
   fi
 deploy:
   provider: releases
