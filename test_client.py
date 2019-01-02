@@ -1,15 +1,10 @@
 import requests
 import json
-from requests.auth import HTTPDigestAuth
-from requests.auth import OAuth1
-from utils import assertEqual
-import operator
-import logging
-import time
-import pprint
-import utils
+import requests.auth
+from requests_oauthlib import OAuth1
+from requests_hawk import HawkAuth
 
-#import adal
+import logging
 
 global app_host_url
 app_host_url=''
@@ -84,11 +79,19 @@ class RestClient(object):
         except ValueError:
             return resp.status_code, None
 
-    def get_with_digest_auth(self, url, username, password, headers=None):
-        queryoauth = OAuth1(client_key, client_secret,
-                            resource_owner_key, resource_owner_secret,
-                            signature_type='query')
-        resp = requests.get(url, auth=HTTPDigestAuth(username, password), headers=headers, verify=False)
+    def get_with_oauth1(self, url, client_key, client_secret, signature_method, headers=None):
+        auth = OAuth1(client_key, client_secret, signature_method=signature_method)
+        resp = requests.get(url, auth=auth, headers=headers, verify=False)
+        try:
+            output = json.loads(resp.text)
+            #resp.raise_for_status()
+            return resp.status_code, output
+        except ValueError:
+            return resp.status_code, None
+
+    def get_with_hawk(self, url, hawk_id, hawk_key, headers=None):
+        auth = HawkAuth(id=hawk_id, key=hawk_key)
+        resp = requests.get(url, auth=auth, headers=headers, verify=False)
         try:
             output = json.loads(resp.text)
             #resp.raise_for_status()
@@ -146,12 +149,12 @@ class BotClient(RestClient):
                     textrm = textrm + status[key][0] + " : *Failed*\n"
                     testrmf = testrmf + 1
 
-        # Headers TC's
+        # Auth TC's
         texth = ''
         testhp = 0
         testhf = 0
         for key in sorted(status):
-            if 'Headers' in status[key][0]:
+            if 'Authorised' in status[key][0]:
                 if status[key][1] == True:
                     texth = texth + status[key][0] + " : Passed\n"
                     testhp = testhp + 1
@@ -196,11 +199,11 @@ class BotClient(RestClient):
                 },
                 {
                     "color": "#800000",
-                    "title": "Headers API's",
+                    "title": "Auth API's",
                     #"text": texth,
                     "fields": [
                         {
-                            "title": "Headers Execution Summary",
+                            "title": "Auth Execution Summary",
                             "value": "Total Tests: " + str(testhp + testhf) + ";Passed: " + str(
                                 testhp) + ";Failed: " + str(testhf)
                         },
@@ -377,38 +380,38 @@ class APIClient(RestClient):
 #**********************************************************************************************************************
 #*****************             Postman Auth Requests             ************************
 #**********************************************************************************************************************
-    def get_digest_auth(self, body):
-        url = '%s/post' % (self.endpoint)
+    def get_digest_auth(self, username, password):
+        url = '%s/digest-auth' % (self.endpoint)
         print("Rest URL: "+url)
         logger.info("Rest URL:"+url)
-        status, resp = self.post(url, json.dumps(body), headers=self.headers)
+        status, resp = self.get_with_digest_auth(url, username, password, headers=self.headers)
         data = json.dumps(resp)
         logger.info(data)
         return status, resp
 
-    def get_basic_auth(self, body):
-        url = '%s/post' % (self.endpoint)
+    def get_basic_auth(self, username, password):
+        url = '%s/basic-auth' % (self.endpoint)
         print("Rest URL: "+url)
         logger.info("Rest URL:"+url)
-        status, resp = self.post(url, body, headers=self.headers_urlencoded)
+        status, resp = self.get_with_auth(url, username, password, headers=self.headers)
         data = json.dumps(resp)
         logger.info(data)
         return status, resp
 
-    def get_oauth(self, body):
-        url = '%s/post' % (self.endpoint)
+    def get_oauth1(self, client_key, client_secret, signature_method):
+        url = '%s/oauth1' % (self.endpoint)
         print("Rest URL: " + url)
         logger.info("Rest URL:" + url)
-        status, resp = self.post(url, body, headers=self.headers_urlencoded)
+        status, resp = self.get_with_oauth1(url, client_key, client_secret, signature_method, headers=self.headers)
         data = json.dumps(resp)
         logger.info(data)
         return status, resp
 
-    def get_hawk_auth(self, body):
-        url = '%s/post' % (self.endpoint)
+    def get_hawk_auth(self, hawk_id, hawk_key):
+        url = '%s/auth/hawk' % (self.endpoint)
         print("Rest URL: " + url)
         logger.info("Rest URL:" + url)
-        status, resp = self.post(url, body, headers=self.headers_urlencoded)
+        status, resp = self.get_with_hawk(url, hawk_id, hawk_key, headers=self.headers)
         data = json.dumps(resp)
         logger.info(data)
         return status, resp

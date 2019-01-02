@@ -7,7 +7,13 @@ Request_methods_post_url_encoded : Passed
 Request_methods_put_data : Passed
 Request_methods_patch_data : *Failed*
 Request_methods_delete_data : Passed
+auth_test_data : Passed
+UnAuthorised_digestauth_get_request : *Failed*
+Authorised_digestauth_get_request : Passed
+Authorised_basicauth_get_request : Passed
+Authorised_oauth1_get_request : Passed
+Authorised_hawkauth_get_request : Passed
 
 *Test Execution Summary*
-Total Tests: 7; Passed: 6; Failed: 1
-*Total Time Taken for Execution : 13.608928918838501 seconds *
+Total Tests: 12; Passed: 10; Failed: 2
+*Total Time Taken for Execution : 27.768258094787598 seconds *

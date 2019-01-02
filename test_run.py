@@ -1,6 +1,7 @@
 import utils
 import test_client
 import tests.request_methods_tests
+import tests.auth_tests
 import logging
 from logging.handlers import TimedRotatingFileHandler
 from datetime import datetime
@@ -44,12 +45,16 @@ def run_api_tests():
 
     tname = config.get('params', 'test_case')
     requestmethods = config.get('tests', 'requestmethods')
+    auth = config.get('tests', 'auth')
 
     # testcase = tname.split(",")
     func_stat = {}
 
     if (tname == 'all') and (requestmethods == 'true'):
         func_stat.update(utils.run_test_cases(tests.request_methods_tests.requestmethods_APITest(client)))
+
+    if (tname == 'all') and (auth == 'true'):
+        func_stat.update(utils.run_test_cases(tests.auth_tests.auth_APITest(client)))
 
     execution_time = "*Total Time Taken for Execution : %s seconds *" % (time.time() - start_time)
 

@@ -1,23 +1,11 @@
 import configparser as ConfigParser
-import requests
-import json
 import time
-import boto
-#import paramiko
-import select
-#import yaml
 import string
 import random
-import sys
 import logging
 import fnmatch
 import os
 import zipfile
-import glob
-import csv
-import adal
-from boto.exception import S3ResponseError
-from requests.exceptions import ConnectionError, ChunkedEncodingError,ReadTimeout,ConnectTimeout
 
 logger = logging.getLogger("Test Run")
 
@@ -61,11 +49,7 @@ def print_test_results(passed, test_name):
         print('**********************************\n')
 
 
-def assignOrder(order: object) -> object:
-        """
-
-        :rtype: object
-        """
+def assignOrder(order):
         def do_assignment(to_func):
             to_func.order = order
             return to_func
