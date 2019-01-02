@@ -1,5 +1,7 @@
 import requests
 import json
+from requests.auth import HTTPDigestAuth
+from requests.auth import OAuth1
 from utils import assertEqual
 import operator
 import logging
@@ -65,7 +67,28 @@ class RestClient(object):
             return resp.status_code, None
 
     def get_with_auth(self, url, username, password, headers=None):
-        resp = requests.get(url, auth=(username, password) , headers=headers, verify=False)
+        resp = requests.get(url, auth=(username, password), headers=headers, verify=False)
+        try:
+            output = json.loads(resp.text)
+            #resp.raise_for_status()
+            return resp.status_code, output
+        except ValueError:
+            return resp.status_code, None
+
+    def get_with_digest_auth(self, url, username, password, headers=None):
+        resp = requests.get(url, auth=HTTPDigestAuth(username, password), headers=headers, verify=False)
+        try:
+            output = json.loads(resp.text)
+            #resp.raise_for_status()
+            return resp.status_code, output
+        except ValueError:
+            return resp.status_code, None
+
+    def get_with_digest_auth(self, url, username, password, headers=None):
+        queryoauth = OAuth1(client_key, client_secret,
+                            resource_owner_key, resource_owner_secret,
+                            signature_type='query')
+        resp = requests.get(url, auth=HTTPDigestAuth(username, password), headers=headers, verify=False)
         try:
             output = json.loads(resp.text)
             #resp.raise_for_status()
@@ -351,3 +374,41 @@ class APIClient(RestClient):
         logger.info(data)
         return status, resp
 
+#**********************************************************************************************************************
+#*****************             Postman Auth Requests             ************************
+#**********************************************************************************************************************
+    def get_digest_auth(self, body):
+        url = '%s/post' % (self.endpoint)
+        print("Rest URL: "+url)
+        logger.info("Rest URL:"+url)
+        status, resp = self.post(url, json.dumps(body), headers=self.headers)
+        data = json.dumps(resp)
+        logger.info(data)
+        return status, resp
+
+    def get_basic_auth(self, body):
+        url = '%s/post' % (self.endpoint)
+        print("Rest URL: "+url)
+        logger.info("Rest URL:"+url)
+        status, resp = self.post(url, body, headers=self.headers_urlencoded)
+        data = json.dumps(resp)
+        logger.info(data)
+        return status, resp
+
+    def get_oauth(self, body):
+        url = '%s/post' % (self.endpoint)
+        print("Rest URL: " + url)
+        logger.info("Rest URL:" + url)
+        status, resp = self.post(url, body, headers=self.headers_urlencoded)
+        data = json.dumps(resp)
+        logger.info(data)
+        return status, resp
+
+    def get_hawk_auth(self, body):
+        url = '%s/post' % (self.endpoint)
+        print("Rest URL: " + url)
+        logger.info("Rest URL:" + url)
+        status, resp = self.post(url, body, headers=self.headers_urlencoded)
+        data = json.dumps(resp)
+        logger.info(data)
+        return status, resp
