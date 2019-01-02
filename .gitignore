@@ -53,6 +53,7 @@ coverage.xml
 
 # Django stuff:
 *.log
+*.log.*
 local_settings.py
 db.sqlite3
 
@@ -104,3 +105,4 @@ venv.bak/
 .mypy_cache/
 
 Test_Results.txt/
+test_run.log.*/
