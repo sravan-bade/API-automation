@@ -24,6 +24,8 @@ deploy:
     - "test_run.log"
     - "test_error.log"
   skip_cleanup: true
+  project-name: "project-name"
+  name: "name"
   on:
     all_branches: true
 notifications:
