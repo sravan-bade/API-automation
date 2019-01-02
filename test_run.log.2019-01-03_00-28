@@ -1,0 +1,98 @@
+-----------------------------------------------
+Test started: 2019-01-03-002714
+Running testcases of set requestmethods_APITest :
+--------------------------------------
+Request_methods_test_data............  OK
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/get?test=123
+200
+API response:200
+Request_methods_get_request............  OK
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/post
+{"args": {}, "data": "\"Duis posuere augue vel cursus pharetra. In luctus a ex nec pretium. Praesent neque quam, tincidunt\"", "files": {}, "form": {}, "headers": {"x-forwarded-proto": "https", "host": "postman-echo.com", "content-length": "100", "accept": "application/json", "accept-encoding": "gzip, deflate", "content-type": "application/json", "user-agent": "python-requests/2.14.2", "x-forwarded-port": "443"}, "json": null, "url": "https://postman-echo.com/post"}
+API response:200
+Request_methods_post_raw_data............  OK
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/post
+{"args": {}, "data": "", "files": {}, "form": {"strange": "boom"}, "headers": {"x-forwarded-proto": "https", "host": "postman-echo.com", "content-length": "12", "accept": "application/json", "accept-encoding": "gzip, deflate", "content-type": "application/x-www-form-urlencoded", "user-agent": "python-requests/2.14.2", "x-forwarded-port": "443"}, "json": {"strange": "boom"}, "url": "https://postman-echo.com/post"}
+API response:200
+Request_methods_post_url_encoded............  OK
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/put
+{"args": {}, "data": "\"Test\"", "files": {}, "form": {}, "headers": {"x-forwarded-proto": "https", "host": "postman-echo.com", "content-length": "6", "accept": "application/json", "accept-encoding": "gzip, deflate", "content-type": "application/json", "user-agent": "python-requests/2.14.2", "x-forwarded-port": "443"}, "json": null, "url": "https://postman-echo.com/put"}
+API response:200
+Request_methods_put_data............  OK
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/put
+null
+API response:404
+Request_methods_patch_data............  Error
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/delete
+{"args": {}, "data": "Test", "files": {}, "form": {}, "headers": {"x-forwarded-proto": "https", "host": "postman-echo.com", "content-length": "4", "accept": "application/json", "accept-encoding": "gzip, deflate", "content-type": "application/json", "user-agent": "python-requests/2.14.2", "x-forwarded-port": "443"}, "json": null, "url": "https://postman-echo.com/delete"}
+API response:200
+Request_methods_delete_data............  OK
+--------------------------------------
+Running testcases of set auth_APITest :
+--------------------------------------
+auth_test_data............  OK
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/basic-auth
+null
+API response:401
+UnAuthorised_digestauth_get_request............  Error
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/basic-auth
+{"authenticated": true}
+API response:200
+Authorised_digestauth_get_request............  OK
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/basic-auth
+{"authenticated": true}
+API response:200
+Authorised_basicauth_get_request............  OK
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/oauth1
+{"status": "pass", "message": "OAuth-1.0a signature verification was successful"}
+API response:200
+Authorised_oauth1_get_request............  OK
+--------------------------------------
+--------------------------------------
+Rest URL:https://postman-echo.com/auth/hawk
+{"message": "Hawk Authentication Successful"}
+API response:200
+Authorised_hawkauth_get_request............  OK
+--------------------------------------
+------------End of Tests------------
+*Sample APIs validation:*
+URL: https://postman-echo.com Build Version: release_name
+Request_methods_test_data : Passed
+Request_methods_get_request : Passed
+Request_methods_post_raw_data : Passed
+Request_methods_post_url_encoded : Passed
+Request_methods_put_data : Passed
+Request_methods_patch_data : *Failed*
+Request_methods_delete_data : Passed
+auth_test_data : Passed
+UnAuthorised_digestauth_get_request : *Failed*
+Authorised_digestauth_get_request : Passed
+Authorised_basicauth_get_request : Passed
+Authorised_oauth1_get_request : Passed
+Authorised_hawkauth_get_request : Passed
+
+
+*Test Execution Summary*
+Total Tests: 12; Passed: 10; Failed: 2
+*Total Time Taken for Execution : 27.768258094787598 seconds *
+------------End of TestRail Update------------

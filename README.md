@@ -92,7 +92,7 @@ Travis Slack integration:
         - automation-sravan:jL4rpMwieMSUfQjqAqy0lnds#general
         - automation-sravan:jL4rpMwieMSUfQjqAqy0lnds#random
 
-Travis Github integration:
+Travis Github Deployment integration:
 1. Login to Travis using GitHub credentials.
 2. Add the repository to perform continuous integration.
 3. Get the API key from Github and provide in the Travis environment variable.
@@ -102,7 +102,7 @@ Travis Github integration:
     eg: Name = api_key and value = xxxxxxxxxx.
 4. Add below commands in travis.yml file to deploy the changes and save artifacts in github repository.
     before_deploy:
-      # Set up git user name and tag this commit
+      Set up git user name and tag this commit
       if ! [[ $TRAVIS_TAG ]]; then
         export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)} &&
         export Release=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)} &&
@@ -118,6 +118,7 @@ Travis Github integration:
         - "test_run.log"
         - "test_error.log"
       skip_cleanup: true
+      "name": "$(git log --format=%h -1)"
       on:
         all_branches: true 
         
