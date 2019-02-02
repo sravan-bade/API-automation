@@ -1,6 +1,7 @@
-import requests
+import requestsgit
 import json
 import requests.auth
+from requests.auth import HTTPDigestAuth
 from requests_oauthlib import OAuth1
 from requests_hawk import HawkAuth
 
