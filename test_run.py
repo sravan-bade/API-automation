@@ -72,7 +72,7 @@ def run_api_tests():
         logger.info("Skipping posting the result to Slack!")
 
     # Testrail Integration
-    # My TestRail got expired, so made the update status to false
+    # My TestRail account got expired, so made the update status to false
     post_to_testrail = config.get('testrail', 'post_to_testrail')
     run_id = config.get('testrail', 'run_id')
     username = config.get('testrail', 'username')
