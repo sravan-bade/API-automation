@@ -1,4 +1,4 @@
-import requestsgit
+import requests
 import json
 import requests.auth
 from requests.auth import HTTPDigestAuth

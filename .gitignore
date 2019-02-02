@@ -106,3 +106,4 @@ venv.bak/
 
 Test_Results.txt/
 test_run.log.*/
+.idea/
